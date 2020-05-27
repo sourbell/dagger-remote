@@ -1,0 +1,166 @@
+<ion-content no-bounce no-padding fullscreen>
+<div>
+  <div class="left-content">
+    <div class="accuro-logo">
+      <img src="assets/images/logo.png">
+    </div>
+    <div class="time-remaining">
+      <h1 class="title">Time Remaining</h1>
+      <span>{{session.timeRemaining || 0}}</span>
+    </div>
+    <div class="leaderboard">
+      <div class="overall">
+        <div class="title">OVERALL</div>
+        <div class="overall-calories">
+          <h5>Total Cal</h5>
+          <h1>{{session.totalCalories}}</h1>
+        </div>
+        <div class="average-calories">
+          <h5>Avg Cal</h5>
+          <h1>{{session.avgCalories}}</h1>
+        </div>
+        <div class="average-hr">
+          <h5>Avg HR</h5>
+          <h1>{{session.avgHeartRate}}</h1>
+        </div>
+      </div>
+      <div class="leaders">
+        <div class="title">LEADERS</div>
+        <div class="leader-content">
+          <h1 class="leaderboard-title"><span>Name</span><span>INT</span></h1>
+          <h1 *ngFor="let leader of session.leaderboard">
+            <span>{{leader.nickName | slice: 0:5}}.</span>
+            <span *ngIf="leader.iqPoints">{{leader.iqPoints}}</span>
+            <span *ngIf="!leader.iqPoints">-</span>
+          </h1>
+        </div>
+        <div class="zone-tips">
+          <h6>TRAINING ZONES</h6>
+          <div class="zones">
+            <span class="zone zone1">1</span>
+            <span class="zone zone2">2</span>
+            <span class="zone zone3">3</span>
+            <span class="zone zone4">4</span>
+            <span class="zone zone5">5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="right-content has-{{activeMembers || 1}}-members display-rows-{{displayRow}}" [ngStyle]="{'padding-left': paddingLeft ? paddingLeft + 'px' : '0'}">
+  <div class="member-board members-{{activeMembers || 1}} rows-{{displayRow}}" *ngFor="let item of classMembers"  [ngStyle]="{'height': blockHeight ? blockHeight + 'px' : 'xx', 'width': blockWidth ? blockWidth + 'px': 'xx'}">
+      <div>
+        <div class="member-title">
+          <h1 class="member-name">{{item.nickName}}</h1>
+          <h1 class="intensity-points"><i>INT: </i>{{item.iqPoints}}</h1>
+        </div>
+        <div class="member-content {{'zone'+item.currentZone}}" *ngIf="true">
+          <div class="hr">
+            <h6>HR</h6>
+            <h3>{{item.heartRate}}</h3>
+          </div>
+          <div class="cal">
+            <h6>CAL</h6>
+            <h3>{{item.calories}}</h3>
+          </div>
+          <div class="max-hr">
+            <h6>MAX HR%</h6>
+            <h3>{{item.heartRatePercent}}</h3>
+            <h6 class="zone-time">{{item.zone[item.currentZone-1]}}</h6>
+          </div>
+        </div>
+        <div class="member-content summary" *ngIf="false">
+          <div class="summary-data">
+            <div>
+              <h3>CAL</h3>
+              <h2>{{item.calories}}</h2>
+            </div>
+            <div>
+              <h3>AVG HR.</h3>
+              <h2>{{item.avgHr}}</h2>
+            </div>
+            <div>
+              <h3>MAX HR.</h3>
+              <h2>{{item.highHr}}</h2>
+            </div>
+          </div>
+          <div class="summary-chart">
+            <div class="chart">
+              <div class="zone">
+                <div class="zone-block">
+                  <div [ngStyle]="{'height': (100 - item.zonePercent[0]) + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[0] < 50">{{item.zonePercent[0]}}%</span>
+                  </div>
+                  <div class="zone1" [ngStyle]="{'height': item.zonePercent[0] + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[0] >= 50">{{item.zonePercent[0]}}%</span>
+                  </div>
+                </div>
+                <span class="zone-time">{{item.zone[0]}}</span>
+              </div>
+              <div class="zone">
+                <div class="zone-block ">
+                  <div [ngStyle]="{'height': (100 - item.zonePercent[1]) + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[1] < 50">{{item.zonePercent[1]}}%</span>
+                  </div>
+                  <div class="zone2" [ngStyle]="{'height': item.zonePercent[1] + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[1] >= 50">{{item.zonePercent[1]}}%</span>
+                  </div>
+                </div>
+                <span class="zone-time">{{item.zone[1]}}</span>
+              </div>
+              <div class="zone">
+                <div class="zone-block">
+                  <div [ngStyle]="{'height': (100 - item.zonePercent[2]) + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[2] < 50">{{item.zonePercent[2]}}%</span>
+                  </div>
+                  <div class="zone3" [ngStyle]="{'height': item.zonePercent[2] + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[2] >= 50">{{item.zonePercent[2]}}%</span>
+                  </div>
+                </div>
+                <span class="zone-time">{{item.zone[2]}}</span>
+              </div>
+              <div class="zone">
+                <div class="zone-block">
+                  <div [ngStyle]="{'height': (100 - item.zonePercent[3]) + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[3] < 50">{{item.zonePercent[3]}}%</span>
+                  </div>
+                  <div class="zone4" [ngStyle]="{'height': item.zonePercent[3] + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[3] >= 50">{{item.zonePercent[3]}}%</span>
+                  </div>
+                </div>
+                <span class="zone-time">{{item.zone[3]}}</span>
+              </div>
+              <div class="zone">
+                <div class="zone-block">
+                  <div [ngStyle]="{'height': (100 - item.zonePercent[4]) + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[4] < 50">{{item.zonePercent[4]}}%</span>
+                  </div>
+                  <div class="zone5" [ngStyle]="{'height': item.zonePercent[4] + '%'}">
+                    <span class="zone-percent" *ngIf="item.zonePercent[4] >= 50">{{item.zonePercent[4]}}%</span>
+                  </div>
+                </div>
+                <span class="zone-time">{{item.zone[4]}}</span>
+              </div>
+            </div>
+            <span class="tip">TOTAL TIME PER ZONE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="action-board">
+      <div class="instructor">
+        <h6 ion-text color="dark">Instructor</h6>
+        <h5>{{session?.instructor || 'Not Set'}}</h5>
+      </div>
+      <div class="class-name">
+        <h6 ion-text color="dark">Class Name</h6>
+        <h5>{{session?.className || 'Not Set'}}</h5>
+      </div>
+      <div class="button-container">
+        <button color="exit-screen" ion-button round outline (click)="closeModal()">Exit Screen</button>
+      </div>
+    </div>
+  </div>
+</div>
+</ion-content>

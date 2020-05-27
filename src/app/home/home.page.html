@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Class List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Class List</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    
+    <ion-card (click)="openSessionDetail(session)" *ngFor="let session of sessions" tabindex="0">
+      <ion-card-header>
+        <ion-card-subtitle>Instructor {{session.instructor}}</ion-card-subtitle>
+        <ion-card-title>{{session.className}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Class Time: 45:00 <br/>
+        Time Remaining: 11:00 <br/>
+        {{keyCode}}
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card tabindex="0">
+      <ion-card-header>
+        <ion-card-subtitle>Instructor Julie</ion-card-subtitle>
+        <ion-card-title>Yoga</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Class Time: 45:00 <br/>
+        Time Remaining: 11:00
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card tabindex="0">
+      <ion-card-header>
+        <ion-card-subtitle>Random Instructor</ion-card-subtitle>
+        <ion-card-title>Random Class Name</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Class Time: 45:00 <br/>
+        Time Remaining: 11:30
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

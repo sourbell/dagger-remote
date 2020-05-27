@@ -1,0 +1,7 @@
+{
+  "name": "accuropt-remote",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
